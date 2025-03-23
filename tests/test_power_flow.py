@@ -18,6 +18,7 @@ class TestPowerFlow(unittest.TestCase):
         self.assertTrue(0 <= dP <= P2 * 0.05)  # Range of P losses in 5%
         self.assertTrue(-Q2 * 0.2 <= dQ <= Q2 * 0.2)  # Range of Q losses in 20%
 
+    @unittest.expectedFailure
     def test_power_flow_fail(self):
         """This test is expected to fail, checking incorrect results."""
         U1, Un, R, X, B, P2, Q2, l = 112, 110, 0.07, 0.2, 1.4, 30, 15, 100
