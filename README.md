@@ -35,7 +35,7 @@ This function calculates the maximum amount of power that can be sent through th
 
   The function iterates by increasing the apparent power until the voltage at the end of the line drops to 90% of the nominal voltage. It then returns the maximum active and reactive power that can be delivered through the line without violating the voltage limit. The maximum active and reactive power are crucial because they determine the system's capacity to deliver power safely. Knowing these values helps engineers design transmission systems that operate efficiently and avoid overloading.
 
-## Note:
+### Note:
 I intentionally allowed `ruff` to handle the formatting. This results in the code exceeding the 40-line limit. While it could be manually compacted (as it was in the beginning), I decided to keep both the `format` and `check` functions in the project. This choice was made to fully demonstrate the implementation and functionality of `ruff`'s formatting feature, rather than just using the `check` function.
 
 ## License
