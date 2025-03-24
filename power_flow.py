@@ -1,8 +1,10 @@
-import math 
+import math
+
 
 def dec_compare(x, y):
     """Compare values up to 3 decimal places."""
     return round(x, 3) == round(y, 3)
+
 
 def power_flow(U1, Un, R, X, B, P2, Q2, l):
     """Compute the power flow and voltage drops."""
@@ -27,16 +29,34 @@ def power_flow(U1, Un, R, X, B, P2, Q2, l):
     Qc1 = (B / 2) * U1**2 / 1e6  # Compute reactive compensation at start
     return U2, dP, dQ, P2 + dP, Q2 + dQ - Qc1  # Return computed values
 
+
 def S_max(P, cosfi, U1, Un, R, X, B):
     """Calculate the apparent power S (and corresponding P, Q) that result in U2 = 90% of nominal voltage."""
-    U2_target, Qc2, S = 0.9 * Un, (B / 2) * (0.9 * Un) ** 2 / 1e6, P  # Set target voltage, reactive compensation, and initial S
-    
-    for _ in range(1000):  # Loop up to 1000 iterations
-        P2, Q2 = S * cosfi, S * math.sqrt(1 - cosfi ** 2) - Qc2  # Calculate active and reactive power
-        dUd, dUq = (P2 * R + Q2 * X) / U2_target, (P2 * X - Q2 * R) / U2_target  # Calculate voltage drops
-        U2_new = math.sqrt(U1 ** 2 - dUq ** 2) - dUd  # New voltage at the end of the line
-        if  U2_new <= U2_target: break  # Check if voltage is below target
-        S += 0.1  #  # If not, increment the apparent power S to bring U2 closer to the target
-    P_max, Q_max = S * cosfi, S * math.sqrt(1 - cosfi ** 2)  #Return the active power (P) and reactive power (Q) corresponding to the final apparent power (S)
+    U2_target, Qc2, S = (
+        0.9 * Un,
+        (B / 2) * (0.9 * Un) ** 2 / 1e6,
+        P,
+    )  # Set target voltage, reactive compensation, and initial S
 
-    return P_max, Q_max  # Return maximum active power (P) and maximum reactive power (Q)
+    for _ in range(1000):  # Loop up to 1000 iterations
+        P2, Q2 = (
+            S * cosfi,
+            S * math.sqrt(1 - cosfi**2) - Qc2,
+        )  # Calculate active and reactive power
+        dUd, dUq = (
+            (P2 * R + Q2 * X) / U2_target,
+            (P2 * X - Q2 * R) / U2_target,
+        )  # Calculate voltage drops
+        U2_new = math.sqrt(U1**2 - dUq**2) - dUd  # New voltage at the end of the line
+        if U2_new <= U2_target:
+            break  # Check if voltage is below target
+        S += 0.1  #  # If not, increment the apparent power S to bring U2 closer to the target
+    P_max, Q_max = (
+        S * cosfi,
+        S * math.sqrt(1 - cosfi**2),
+    )  # Return the active power (P) and reactive power (Q) corresponding to the final apparent power (S)
+
+    return (
+        P_max,
+        Q_max,
+    )  # Return maximum active power (P) and maximum reactive power (Q)

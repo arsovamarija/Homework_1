@@ -1,8 +1,12 @@
 import unittest
-from power_flow import dec_compare, power_flow, S_max  # Import the new power_losses function
+from power_flow import (
+    dec_compare,
+    power_flow,
+    S_max,
+)  # Import the new power_losses function
+
 
 class TestPowerFlow(unittest.TestCase):
-
     def test_dec_compare(self):
         """Test decimal comparison function."""
         self.assertTrue(dec_compare(1.2341, 1.23449))  # Should be equal
@@ -27,9 +31,16 @@ class TestPowerFlow(unittest.TestCase):
 
     def test_Smax(self):
         U1, Un, R, X, B, P2, cosfi, l = 112, 110, 0.07, 0.2, 1.4, 30, 0.8, 100
-        Pmax, Qmax = S_max(P2, 0.8, U1, Un, R*l, X*l, B*l) # Call the S_max function to calculate the maximum apparent power (Pmax, Qmax)
-        U2, dP, dQ, S1_real, S1_imag = power_flow(U1, Un, R, X, B, Pmax, Qmax, l)   # Implement power_flow function with calculated Pmax and Qmax
-        self.assertAlmostEqual(U2, 0.9*Un, places=1) # Check if the resulting voltage U2 is within 90% of the nominal voltage (Un)
+        Pmax, Qmax = S_max(
+            P2, 0.8, U1, Un, R * l, X * l, B * l
+        )  # Call the S_max function to calculate the maximum apparent power (Pmax, Qmax)
+        U2, dP, dQ, S1_real, S1_imag = power_flow(
+            U1, Un, R, X, B, Pmax, Qmax, l
+        )  # Implement power_flow function with calculated Pmax and Qmax
+        self.assertAlmostEqual(
+            U2, 0.9 * Un, places=1
+        )  # Check if the resulting voltage U2 is within 90% of the nominal voltage (Un)
+
 
 if __name__ == "__main__":
     unittest.main()
