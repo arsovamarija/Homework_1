@@ -4,8 +4,6 @@ import math
 def dec_compare(x, y):
     """Compare values up to 3 decimal places."""
     return round(x, 3) == round(y, 3)
-
-
 def power_flow(U1, Un, R, X, B, P2, Q2, l):
     """Compute the power flow and voltage drops."""
     R, X, B = R * l, X * l, B * l  # Scale resistance, reactance, and susceptance by line length
