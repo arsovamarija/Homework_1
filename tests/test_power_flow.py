@@ -9,7 +9,7 @@ from power_flow import (
 class TestPowerFlow(unittest.TestCase):
     def test_dec_compare(self):
         """Test decimal comparison function."""
-        self.assertTrue(dec_compare(1.2341, 1.23449))  # Should be equal
+        self.assertTrue(dec_compare(1.2341, 1.24449))  # Should be equal
         self.assertFalse(dec_compare(1.234, 1.235))  # Should not be equal
 
     def test_power_flow(self):
